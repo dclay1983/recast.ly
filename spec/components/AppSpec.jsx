@@ -68,7 +68,7 @@ describe('App', function() {
 
       var videoEntryTitleElements = scryRenderedDOMComponentsWithClass(app, 'video-list-entry-title');
 
-      videoEntryTitleElements.forEach((videoEntryTitle, i) =>
+      videoEntryTitleElements((videoEntryTitle, i) =>
         expect(videoEntryTitle.innerHTML).to.equal(fakeVideoData[i].snippet.title)
       );
     });
