@@ -1,6 +1,4 @@
 var searchYouTube = (options, callback = ()=>{}) => {
-  const ENDPOINT = 'https://www.googleapis.com/youtube/v3/search';
-  console.log('searchYouTube get called');
   $.ajax({
     url: 'https://www.googleapis.com/youtube/v3/search',
     type: 'GET',
@@ -13,7 +11,6 @@ var searchYouTube = (options, callback = ()=>{}) => {
       type: 'video',
     },
     success: (data)=> {
-      console.log('ajax get called');
       callback(data.items);
     },
     error: function(error) {

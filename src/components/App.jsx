@@ -16,7 +16,6 @@ class App extends React.Component {
 
     this.handleVideo = this.handleVideo.bind(this);
     this.handleVideos = this.handleVideos.bind(this);
-    this.handleQuery = this.handleQuery.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
 
@@ -28,13 +27,8 @@ class App extends React.Component {
     this.setState({videos: currentVideos});
   }
 
-  handleQuery(currentQuery) {
-    //var currentQuery = event.target.value;
-    console.log('currentQuery', currentQuery);
-    this.setState({query: currentQuery});
-  }
-
   handleSearch(currentQuery) {
+    this.setState({query: currentQuery});
     var options = {
       key: YOUTUBE_API_KEY,
       max: 5,
@@ -47,7 +41,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // console.log('componentDidMount');
     this.handleSearch();
     this.interval = setInterval(this.handleSearch, 360000);
   }
@@ -58,7 +51,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em><Search getQuery = {this.handleQuery} inputQuery = {this.state.query} searchQuery = {this.handleSearch}/></em></h5></div>
+            <div><h5><em><Search inputQuery = {this.state.query} searchQuery = {this.handleSearch}/></em></h5></div>
           </div>
         </nav>
         <div className="row">
