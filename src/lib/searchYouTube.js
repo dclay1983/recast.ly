@@ -2,12 +2,12 @@ var searchYouTube = (options, callback = ()=>{}) => {
   const ENDPOINT = 'https://www.googleapis.com/youtube/v3/search';
 
   $.ajax({
-    url: ENDPOINT,
+    url: 'https://www.googleapis.com/youtube/v3/search',
     type: 'GET',
     data: {
       key: options.key,
       maxResults: options.max,
-      videoEmbeddable: true,
+      //videoEmbeddable: true,
       q: options.query,
       part: 'snippet',
       type: 'video',
