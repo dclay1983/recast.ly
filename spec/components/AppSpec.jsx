@@ -1,5 +1,6 @@
 import App from '../../src/components/App.js';
 
+
 describe('App', function() {
   var {
     Simulate,
@@ -68,7 +69,8 @@ describe('App', function() {
 
       var videoEntryTitleElements = scryRenderedDOMComponentsWithClass(app, 'video-list-entry-title');
 
-      videoEntryTitleElements((videoEntryTitle, i) =>
+      console.log(searchYouTubeStub.called);
+      videoEntryTitleElements.forEach((videoEntryTitle, i) =>
         expect(videoEntryTitle.innerHTML).to.equal(fakeVideoData[i].snippet.title)
       );
     });

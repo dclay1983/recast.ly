@@ -3,17 +3,20 @@ import VideoPlayer from './VideoPlayer.js';
 import exampleVideoData from '../data/exampleVideoData.js';
 import Search from './Search.js';
 import YOUTUBE_API_KEY from '../config/youtube.js';
+import searchYouTube from '../lib/searchYouTube.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: 'react',
+      query: 'happy',
       video: exampleVideoData[0],
       videos: exampleVideoData,
     };
+
     this.handleVideo = this.handleVideo.bind(this);
     this.handleVideos = this.handleVideos.bind(this);
+    this.handleQuery = this.handleQuery.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
 
@@ -25,21 +28,27 @@ class App extends React.Component {
     this.setState({videos: currentVideos});
   }
 
-  handleSearch() {
-    //this.setState({query: query})
-    var info = {
+  handleQuery(currentQuery) {
+    //var currentQuery = event.target.value;
+    console.log('currentQuery', currentQuery);
+    this.setState({query: currentQuery});
+  }
+
+  handleSearch(currentQuery) {
+    var options = {
       key: YOUTUBE_API_KEY,
       max: 5,
-      query: 'react'
+      query: currentQuery
     };
-    this.props.search(info, (data) => {
-      this.handleVideo(data.items[0]);
-      this.handleVideos(data.items);
+    this.props.searchYouTube(options, (data) => {
+      this.handleVideo(data[0]);
+      this.handleVideos(data);
     });
   }
 
   componentDidMount() {
-    console.log('sucess');
+    // console.log('componentDidMount');
+    this.handleSearch();
     this.interval = setInterval(this.handleSearch, 360000);
   }
 
@@ -49,7 +58,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em><Search /></em></h5></div>
+            <div><h5><em><Search getQuery = {this.handleQuery} inputQuery = {this.state.query} searchQuery = {this.handleSearch}/></em></h5></div>
           </div>
         </nav>
         <div className="row">
@@ -57,7 +66,7 @@ class App extends React.Component {
             <div><h5><em><VideoPlayer video = {this.state.video}/></em></h5></div>
           </div>
           <div className="col-md-5">
-            <div><h5><em><VideoList selectVideo = {this.handleVideo} videos = {exampleVideoData}/></em></h5></div>
+            <div><h5><em><VideoList selectVideo = {this.handleVideo} videos = {this.state.videos}/></em></h5></div>
           </div>
         </div>
       </div>
